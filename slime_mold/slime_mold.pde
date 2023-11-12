@@ -1,10 +1,10 @@
 float[][] pheromone;
 float[][] buffer;
-float decay = 0.6;
+float decay = 0.2;
 Particle[] particles = new Particle[100000];
 
 float angle = 0.3;
-float sensor_dist = 10;
+float sensor_dist = 30;
 float angle_sensitivity = 0.3;
 float rand_angle = 0.3;
 void setup(){
@@ -25,7 +25,7 @@ void setup(){
 void draw() {
   for (int i=0; i<width; i++) {
     for (int j=0; j<height; j++) {
-      set(i, j, color(pheromone[i][j]));
+      set(i, j, color((pheromone[i][j]>100) ? 0.2*pheromone[i][j]-100 : 0, 0, 0.5*pheromone[i][j]));
       pheromone[i][j] *= decay;
     }
   }
@@ -61,7 +61,7 @@ class Particle{
   PVector velocity;
   
   Particle() {
-    position = new PVector(random(width), random(height));
+    position = new PVector(width/2, height/2);//random(width), random(height));
     velocity = PVector.random2D();
     
   }
